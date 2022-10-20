@@ -12,6 +12,7 @@ import { GET_MOVIES } from '../../services/movies';
 const Movies: NextPage = () => {
   const { data, fetchMore } = useQuery(GET_MOVIES, {
     variables: { offset: 0, limit: 15 },
+    fetchPolicy: 'cache-and-network',
   });
   const router = useRouter();
   const listInnerRef = useRef<HTMLDivElement>(null);
@@ -64,7 +65,7 @@ const Movies: NextPage = () => {
   );
 };
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const apolloClient = initializeApollo();
 
   await apolloClient.query({

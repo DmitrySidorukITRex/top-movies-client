@@ -13,7 +13,9 @@ interface DirectorsProps {
 }
 
 const Directors: NextPage<DirectorsProps> = () => {
-  const { data } = useQuery(GET_DIRECTORS);
+  const { data } = useQuery(GET_DIRECTORS, {
+    fetchPolicy: 'cache-and-network',
+  });
   const router = useRouter();
   const directors: Director[] = data.directors;
 
@@ -42,7 +44,7 @@ const Directors: NextPage<DirectorsProps> = () => {
   );
 };
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const apolloClient = initializeApollo();
 
   await apolloClient.query({

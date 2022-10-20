@@ -1,4 +1,4 @@
-import { GetStaticProps, NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
@@ -13,7 +13,7 @@ const MovieDetails: NextPage = () => {
   const { data } = useQuery(GET_MOVIE, {
     variables: { id: router.query.id },
   });
-  const { movie } = data;
+  const movie: Movie = data.movie;
 
   return (
     <>
@@ -29,24 +29,7 @@ const MovieDetails: NextPage = () => {
   );
 };
 
-export const getStaticPaths = async () => {
-  const apolloClient = initializeApollo();
-
-  const { data } = await apolloClient.query({
-    query: GET_MOVIES,
-  });
-
-  const paths = data.movies.map((movie: Movie) => ({
-    params: { id: movie.id },
-  }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const apolloClient = initializeApollo();
 
   const { id } = context.params as ParsedUrlQuery;
