@@ -5,11 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "NODE_ENV=production node server/index.js",
-    "lint": "next lint",
-    "cypress": "cypress open",
-    "cypress:headless": "cypress run",
-    "test": "jest --watch"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
