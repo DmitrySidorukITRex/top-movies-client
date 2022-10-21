@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
+import Image, { ImageLoader } from 'next/image';
 import { Movie } from '../../interfaces/movie';
 import * as Styled from './styled';
 
@@ -11,10 +11,20 @@ interface MovieCard {
 const MovieCard: React.FC<MovieCard> = ({ movie, onCardClick }) => {
   const { name, genre, year, rate, imgSrc } = movie;
 
+  const customLoader: ImageLoader = ({ src, width, quality }) => {
+    return `${src}?w=${width}&q=${quality || 50}`;
+  };
+
   return (
     <Styled.Card>
       <Styled.Poster onClick={() => onCardClick(movie)}>
-        <Image src={imgSrc} width={180} height={250} alt="movie image" />
+        <Image
+          src={imgSrc}
+          width={180}
+          height={250}
+          alt="movie image"
+          loader={customLoader}
+        />
         <Styled.Details>Details</Styled.Details>
       </Styled.Poster>
       <Styled.Title>{name}</Styled.Title>

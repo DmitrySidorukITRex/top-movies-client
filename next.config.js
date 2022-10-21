@@ -18,7 +18,6 @@ const nextConfig = {
       'kinopoisk-ru.clstorage.net',
     ],
     minimumCacheTTL: 300,
-    unoptimized: true,
   },
   async redirects() {
     return [
